@@ -1,5 +1,7 @@
 # Data Structures and Time Complexity Analysis (AED - Trabalho 3)
 
+[![CI](https://github.com/kakurokan/non-linear_and_hashing_data_structures/actions/workflows/ci.yml/badge.svg)](https://github.com/kakurokan/non-linear_and_hashing_data_structures/actions/workflows/ci.yml)
+
 A Java implementation of custom non-linear and hashing data structures developed for the Algorithms and Data Structures (*Algoritmos e Estruturas de Dados* - AED) course. This project focuses on custom tree structures, hash table bucket strategies, and empirical temporal analysis benchmarking.
 
 ---
@@ -23,39 +25,40 @@ A Java implementation of custom non-linear and hashing data structures developed
 ## 🏗 Project Structure
 
 
-```
-
+```text
 Trabalho3AED/
-├── src/
-│   └── aed/
-│       ├── Main.java                      # Main execution & benchmarking entry point
-│       ├── tables/
-│       │   ├── IUAlshBucket.java          # Bucket interface for hash collision handling
-│       │   └── UAlshTable.java            # Hash table data structure implementation
-│       ├── trees/
-│       │   ├── IUAlgTreeNode.java         # Tree node interface
-│       │   └── UAlgTree.java              # Custom tree structure implementation
-│       └── utils/
-│           └── TemporalAnalysisUtils.java # Utility methods for execution time benchmarking
-└── Trabalho 3.iml                         # IntelliJ IDEA project module configuration
-
----
+├── .github/workflows/ci.yml                     # CI: runs mvn -B test on every push and PR
+├── pom.xml                                      # Maven build (Java 17, JUnit 5)
+└── src/
+    ├── main/java/aed/
+    │   ├── Main.java                            # Main execution & benchmarking entry point
+    │   ├── tables/
+    │   │   ├── IUAlshBucket.java                # Bucket interface for hash collision handling
+    │   │   └── UAlshTable.java                  # Hash table data structure implementation
+    │   ├── trees/
+    │   │   ├── IUAlgTreeNode.java               # Tree node interface
+    │   │   └── UAlgTree.java                    # Custom tree structure implementation
+    │   └── utils/
+    │       └── TemporalAnalysisUtils.java       # Utility methods for execution time benchmarking
+    └── test/java/aed/
+        ├── tables/UAlshTableTest.java           # JUnit 5 tests for the hash table
+        └── trees/UAlgTreeTest.java              # JUnit 5 tests for the tree
 ```
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- **Java Development Kit (JDK):** Version 8 or higher (JDK 17+ recommended).
+- **Java Development Kit (JDK):** Version 17 or higher.
+- **Apache Maven:** Version 3.9 or higher.
 
 ### Compilation & Execution
 
 #### 1. Compile the Project
-From the root directory, compile all source files into a target `bin/` directory:
+From the root directory, compile all source files into `target/classes`:
 
 ```bash
-mkdir -p bin
-javac -d bin -sourcepath src src/aed/Main.java src/aed/tables/*.java src/aed/trees/*.java src/aed/utils/*.java
-
+mvn compile
 ```
 
 #### 2. Run the Benchmark
@@ -63,9 +66,20 @@ javac -d bin -sourcepath src src/aed/Main.java src/aed/tables/*.java src/aed/tre
 Execute the `Main` class to run data structure operations and print temporal analysis metrics:
 
 ```bash
-java -cp bin aed.Main
-
+java -cp target/classes aed.Main
 ```
+
+---
+
+## 🧪 Build and test
+
+The project uses a standard Maven layout (`src/main/java`, `src/test/java`). JUnit 5 tests cover `UAlgTree` and `UAlshTable`, including seeded randomized comparisons against `java.util.TreeMap` and `java.util.HashMap` and checks of the tree's size/weight invariants.
+
+```bash
+mvn test
+```
+
+Continuous integration runs `mvn -B test` on every push and pull request (`.github/workflows/ci.yml`); the badge at the top of this file shows the latest result.
 
 ---
 
